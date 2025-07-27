@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package ToDoService.v1;
+
+enum Status {
+	PENDING = 0;
+	COMPLETED = 1;
+}
+
+message ToDo {
+	string id = 1;
+	string description = 2;
+	Status status = 3;
+}
+message GetListReq {
+}
+message GetListRes {
+	repeated ToDo ToDo = 1;
+}
+message AddItemReq {
+	string description = 2;
+}
+message AddItemRes {
+}
+message UpdateItemReq {
+	ToDo todo = 1;
+}
+message UpdateItemRes {
+}
+message StreamUpdateChangeReq {
+	//string todo_id = 1;
+}
+message StreamUpdateChangeRes {
+	ToDo todo = 1;
+}
+
+service	ToDoService {
+	rpc	GetList(GetListReq) returns (GetListRes);
+	rpc AddItem(AddItemReq) returns (AddItemRes);
+	rpc UpdateItem(UpdateItemReq) returns (UpdateItemRes);
+	rpc StreamUpdateChange(StreamUpdateChangeReq) returns (stream StreamUpdateChangeRes);
+}
