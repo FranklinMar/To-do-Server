@@ -4,9 +4,9 @@ cmake_minimum_required(VERSION 3.20)
 project(To-doServer)
 
 
-execute_process(
-	COMMAND ${PROJECT_SOURCE_DIR}/scripts/proto-gen.bat
-)
+# execute_process(
+# 	COMMAND ${PROJECT_SOURCE_DIR}/scripts/proto-gen.bat
+#)
 
 # Variables for genproto lib target
 set(GENPROTO_LIB "genproto_lib")

@@ -2,6 +2,10 @@
 
 :: Get current directory
 set CURRENT_DIR=%cd%
+:: cd ..
+:: set PROJECT_DIR=%cd%
+:: cd %CURRENT_DIR%
+
 for /f "delims=" %%F in ('where grpc_cpp_plugin.exe') do set GRPC_CPP_PLUGIN=%%F
 :: echo %GRPC_CPP_PLUGIN%
 :: Create genproto folder if it does not exist
@@ -21,10 +25,10 @@ md "%CURRENT_DIR%\genproto"
 ::         protoc -I "%CURRENT_DIR%\protos" --cpp_out="%CURRENT_DIR%\genproto" "%%F"       
 ::     )
 :: )
-for %%F in ("%CURRENT_DIR%\protos\*.proto") do (
+for %%F in ("%CURRENT_DIR%\..\protos\*.proto") do (
 	echo Generating from %%F
-	protoc -I "%CURRENT_DIR%\protos" --cpp_out="%CURRENT_DIR%\genproto" "%%F"
-	protoc -I "%CURRENT_DIR%\protos" --grpc_out="%CURRENT_DIR%\genproto" --plugin=protoc-gen-grpc="%GRPC_CPP_PLUGIN%" "%%F"    
+	protoc -I "%CURRENT_DIR%\..\protos" --cpp_out="%CURRENT_DIR%\genproto" "%%F"
+	protoc -I "%CURRENT_DIR%\..\protos" --grpc_out="%CURRENT_DIR%\genproto" --plugin=protoc-gen-grpc="%GRPC_CPP_PLUGIN%" "%%F"    
 )
 echo Done.
 

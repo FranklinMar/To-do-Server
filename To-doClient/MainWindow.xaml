@@ -1,0 +1,44 @@
+﻿<Window x:Class="To_doClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:To_doClient"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000">
+    <Grid Background="#000000" Height="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="To-Do List" FontSize="24" FontWeight="Bold" Foreground="White" Margin="10" Grid.Row="0"/>
+        <ListView Name="ToDoList" Grid.Row="1" ItemsSource="{Binding ToDos}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" MinWidth="300"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Description}" Foreground="White" VerticalAlignment="Center"/>
+                        <CheckBox IsChecked="{Binding Status, Mode=TwoWay}" Content="Done" Width="100" VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
+        <Grid Margin="10" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="300"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="NewDescriptionBox" Grid.Column="0" MinWidth="300" Margin="0,0,10,0" />
+            <Button Content="Add ToDo" Grid.Column="1" Width="100" Click="AddToDo_Click"/>
+        </Grid>
+    </Grid>
+</Window>

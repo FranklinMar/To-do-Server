@@ -13,3 +13,4 @@ project ("To-doServer")
 
 # Include sub-projects.
 add_subdirectory ("To-doServer")
+add_subdirectory ("To-doClient")

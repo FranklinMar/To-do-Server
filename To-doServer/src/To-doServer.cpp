@@ -27,7 +27,7 @@ int main()
 
 Server::Server(std::string server_address, std::shared_ptr<grpc::Service> service, std::string service_name) : server_address_(server_address_), service_(service), service_name_(service_name) {
 	// Register intercept
-	this->interceptor_creators_.emplace_back(std::make_unique<LoggerInterceptorFactory>());
+	//this->interceptor_creators_.emplace_back(std::make_unique<LoggerInterceptorFactory>());
 }
 
 void Server::Start() {
@@ -35,9 +35,9 @@ void Server::Start() {
 
 	builder.AddListeningPort(this->server_address_, grpc::InsecureServerCredentials());
 
-	builder.experimental().SetInterceptorCreators(this->interceptor_creators_);
-
 	builder.RegisterService(this->service_.get());
+
+	//builder.experimental().SetInterceptorCreators(std::move(this->interceptor_creators_));
 
 	this->server_ = builder.BuildAndStart();
 
