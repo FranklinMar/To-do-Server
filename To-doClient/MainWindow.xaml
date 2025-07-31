@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:To_doClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000">
+        Title="MainWindow" Height="600" Width="1000"
+        Loaded="Window_Loaded">
     <Grid Background="#000000" Height="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="To-Do List" FontSize="24" FontWeight="Bold" Foreground="White" Margin="10" Grid.Row="0"/>
-        <ListView Name="ToDoList" Grid.Row="1" ItemsSource="{Binding ToDos}">
+        <ListView Name="ToDoList" Grid.Row="1" ItemsSource="{Binding ToDos}" Background="#000000">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="10">
@@ -23,8 +25,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding Description}" Foreground="White" VerticalAlignment="Center"/>
-                        <CheckBox IsChecked="{Binding Status, Mode=TwoWay}" Content="Done" Width="100" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Description}" Foreground="White" VerticalAlignment="Center" Grid.Column="0" />
+                        <CheckBox IsChecked="{Binding Status, Mode=TwoWay}" Content="Done" Width="100" VerticalAlignment="Center" Foreground="White" Grid.Column="1"/>
                     </Grid>
                 </DataTemplate>
           </ListView.ItemTemplate>

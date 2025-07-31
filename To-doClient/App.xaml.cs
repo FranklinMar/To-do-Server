@@ -15,7 +15,7 @@ namespace To_doClient
     public partial class App : Application
     {
         public ToDoService.V1.ToDoService.ToDoServiceClient Client { get; private set; }
-        public App(string address = "0.0.0.0", uint port = 50055) {
+        public App(string address = "127.0.0.1", uint port = 50055) {
             // Initialize the application
             InitializeComponent();
 

@@ -27,8 +27,8 @@ md "%CURRENT_DIR%\genproto"
 :: )
 for %%F in ("%CURRENT_DIR%\..\protos\*.proto") do (
 	echo Generating from %%F
-	protoc -I "%CURRENT_DIR%\..\protos" --cpp_out="%CURRENT_DIR%\genproto" "%%F"
-	protoc -I "%CURRENT_DIR%\..\protos" --grpc_out="%CURRENT_DIR%\genproto" --plugin=protoc-gen-grpc="%GRPC_CPP_PLUGIN%" "%%F"    
+	"D:\Programs\vcpkg\installed\x64-windows\tools\protobuf\protoc.exe" -I "%CURRENT_DIR%\..\protos" --cpp_out="%CURRENT_DIR%\genproto" "%%F"
+	"D:\Programs\vcpkg\installed\x64-windows\tools\protobuf\protoc.exe" -I "%CURRENT_DIR%\..\protos" --grpc_out="%CURRENT_DIR%\genproto" --plugin=protoc-gen-grpc="D:\Programs\vcpkg\installed\x64-windows\tools\grpc\grpc_cpp_plugin.exe" "%%F"    
 )
 echo Done.
 

@@ -56,6 +56,8 @@ Status ToDo_Service::AddItem(ServerContext* context, const tds::AddItemReq* requ
 	todo.set_id(this->generate_id());
 	todo.set_description(request->description());
 	todo.set_status(tds::Status::PENDING);
+	std::cout << "Created new item " << todo.id() << std::endl;
+	
 
 	this->ToDos_[todo.id()] = todo;
 	NotifyUsers(todo);
@@ -87,6 +89,7 @@ Status ToDo_Service::StreamUpdateChange(ServerContext* context, const tds::Strea
 		//std::lock_guard<std::mutex> lock(this->stream_mutex_);
 		std::lock_guard<std::mutex> lock(this->mutex_);
 		this->Users_.push_back(writer);
+		std::cout << "Opened up socket with " << writer << std::endl;
 		//	if (todo_id.empty()) {
 		//		return Status(grpc::StatusCode::INVALID_ARGUMENT, "ToDo object must be specified");
 		//	}
@@ -108,18 +111,22 @@ Status ToDo_Service::StreamUpdateChange(ServerContext* context, const tds::Strea
 
 	while (!context->IsCancelled()) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		//std::cout << "Context cancelled " << writer << std::endl;
 	}
 
 	{
 		std::lock_guard<std::mutex> lock(this->mutex_);
+		std::cout << "Closed up socket with " << writer << std::endl;
 		this->Users_.erase(std::remove(this->Users_.begin(), this->Users_.end(), writer), this->Users_.end());
 	}
 	return Status::OK;
 }
 
 void ToDo_Service::NotifyUsers(const tds::ToDo& todo) {
-	std::lock_guard<std::mutex> lock(this->mutex_);
+	//std::lock_guard<std::mutex> lock(this->mutex_);
 	tds::StreamUpdateChangeRes response;
+
+	std::cout << "Notifying users" << std::endl;
 	*(response.mutable_todo()) = todo;
 
 	for (auto writer : this->Users_) {
@@ -127,5 +134,6 @@ void ToDo_Service::NotifyUsers(const tds::ToDo& todo) {
 
 		}*/
 		writer->Write(response);
+		std::cout << "User " << writer << " notified" << std::endl;
 	}
 }

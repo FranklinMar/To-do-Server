@@ -27,9 +27,10 @@ namespace To_doClient
             ToDos = [];
             DataContext = this;
             Client = ((App)Application.Current).Client;
+            //await Window_Loaded();
         }
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded (object sender, RoutedEventArgs e)
         {
             GetListReq ListReq = new();
             var ListRes = await Client.GetListAsync(ListReq);
@@ -54,9 +55,11 @@ namespace To_doClient
             using var Call = Client.StreamUpdateChange(StreamReq);
             while (await Call.ResponseStream.MoveNext(CancellationToken.None))
             {
+                Console.WriteLine("Received update from server");
                 var update = Call.ResponseStream.Current;
                 if (update.Todo != null)
                 {
+                    Console.WriteLine("Received Todo");
                     var Todo = ToDos.FirstOrDefault(todo => todo.Id == update.Todo.Id);
                     if (Todo == null)
                     {
@@ -103,6 +106,11 @@ namespace To_doClient
                 };
                 Client.AddItem(Req);
             }
+        }
+
+        private void Window_Loaded_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -14,6 +14,7 @@ int main()
 		Config config = Config::New();
 		std::shared_ptr<ToDo_Service> TDService = std::make_shared<ToDo_Service>();
 		std::unique_ptr<Server> server = std::make_unique<Server>(config.host + ":" + config.port, TDService, tds::ToDoService::service_full_name());
+		//std::unique_ptr<Server> server = std::make_unique<Server>("0.0.0.0:50051", TDService, tds::ToDoService::service_full_name());
 
 		server->Start();
 	}
@@ -25,9 +26,9 @@ int main()
 	return 0;
 }
 
-Server::Server(std::string server_address, std::shared_ptr<grpc::Service> service, std::string service_name) : server_address_(server_address_), service_(service), service_name_(service_name) {
+Server::Server(std::string server_address, std::shared_ptr<grpc::Service> service, std::string service_name) : server_address_(server_address), service_(service), service_name_(service_name) {
 	// Register intercept
-	//this->interceptor_creators_.emplace_back(std::make_unique<LoggerInterceptorFactory>());
+	this->interceptor_creators_.emplace_back(std::make_unique<LoggerInterceptorFactory>());
 }
 
 void Server::Start() {
@@ -37,7 +38,7 @@ void Server::Start() {
 
 	builder.RegisterService(this->service_.get());
 
-	//builder.experimental().SetInterceptorCreators(std::move(this->interceptor_creators_));
+	builder.experimental().SetInterceptorCreators(std::move(this->interceptor_creators_));
 
 	this->server_ = builder.BuildAndStart();
 

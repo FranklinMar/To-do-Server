@@ -30,7 +30,7 @@ private:
 	std::string service_name_;
 
 	// Middle wares in grpc - Interceptors
-	//std::vector<std::unique_ptr<grpc::experimental::ServerInterceptorFactoryInterface>> interceptor_creators_;
+	std::vector<std::unique_ptr<grpc::experimental::ServerInterceptorFactoryInterface>> interceptor_creators_;
 };
 
 //#include <iostream>
