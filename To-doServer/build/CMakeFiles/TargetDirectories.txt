@@ -1,4 +1,0 @@
-C:/Users/1/source/repos/To-doServer/To-doServer/build/CMakeFiles/genproto_lib.dir
-C:/Users/1/source/repos/To-doServer/To-doServer/build/CMakeFiles/To-doServer.dir
-C:/Users/1/source/repos/To-doServer/To-doServer/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/1/source/repos/To-doServer/To-doServer/build/CMakeFiles/ZERO_CHECK.dir

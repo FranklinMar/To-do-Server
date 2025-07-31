@@ -1,8 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"C:/Users/1/source/repos/To-doServer/cmake/build/cmake_install.cmake",
-		"C:/Users/1/source/repos/To-doServer/cmake/build/To-doServer/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
