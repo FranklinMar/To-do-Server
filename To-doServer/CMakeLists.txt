@@ -12,8 +12,6 @@ project(To-doServer)
 set(GENPROTO_LIB "genproto_lib")
 set(GENPROTO_DIR "${PROJECT_SOURCE_DIR}/genproto")
 
-set(CMAKE_PREFIX_PATH "C:/Users/1/source/repos/.build" ${CMAKE_PREFIX_PATH})
-
 # Necessary package
 find_package(Protobuf REQUIRED)
 find_package(gRPC REQUIRED)
