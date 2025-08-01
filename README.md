@@ -124,5 +124,36 @@ And run the final building command:
 cmake --build . --config Release
 ```
 
-After this, you should have the server executable built successfully inside the `/build/To-doServer/` directory.
+After this, you should have the server and client executables built successfully inside the `/build/` directory in respective subdirectories.
 Use the respective `.exe` files to run both server and client applications.
+
+## 📝 Design Explanation
+
+The design choices regarding the project were based on pretty simple reasons:
+
+### Why gRPC?
+This project is required to be a cross-platform application, so gRPC was selected as a communication protocol.
+
+- **gRPC**: It is a modern, high-performance RPC framework that supports multiple languages and platforms, 
+making it suitable for cross-platform applications. Not to mention it's advantages over standart transfer protocols, 
+such as performance, ability of real-time synchronization, and more.
+- The specifications of the projects required the client to be written on WPF (C#/XAML) platform. Because of 
+gRPC's support for multiple languages, the choice was pretty obvious.
+
+### Why CMake as a Build System?
+Due to the previous point, gRPC is a bit tricky to set up, especially on Windows platform. Because of that, it was clear
+that we need a build system that would allow us to easily manage dependencies and build the project on multiple platforms. 
+This would allow us to have a robust application that can be built and run on different operating systems without much hassle.
+This is also why the project uses `vcpkg`` as a dependency manager, as it integrates well with CMake and allows for easy 
+management of libraries.
+
+### Faced challenges
+- **gRPC Setup**: The first and probably the most challenging part was setting up gRPC and Protobuf. Unfortunatelly, the	
+official documentation is not very clear on how to set it up, especially when encountering issues with the build process,
+especially with CMake on Windows platform. In total, it took almost 4 days to figure out how to set it up correctly, using every possible
+option available, including using manual build with CMake, `WSL`, `Linux Virtual Machine` and, finally, `vcpkg`. Not to mention the
+tricky part of insuring that CMake would use the installed packages.
+- **Cross-Platform Compatibility**: Ensuring that the `proto-gen` script for generating C++ code was a tricky part as well, because
+as mentioned before, this project is cross-platform and it was required for the scripts to work regardless.
+- **Real-time Synchronization**: The last and probably the most satisfying part was implementing the real-time synchronization on the client
+application. At first, it seemed too complex and confusing, but after doing some deeper research on how gRPC streaming works, it was just a matter of time.

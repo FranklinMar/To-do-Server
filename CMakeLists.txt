@@ -13,4 +13,9 @@ project (To-do)
 
 # Include sub-projects.
 add_subdirectory ("To-doServer")
-add_subdirectory ("To-doClient")
+add_custom_target(To-doClient ALL
+    COMMAND dotnet build ${CMAKE_SOURCE_DIR}/To-doClient/To-doClient.csproj
+            -c Debug
+            -o ${CMAKE_BINARY_DIR}/To-doClient/
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/To-doClient
+)
