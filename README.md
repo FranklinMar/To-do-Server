@@ -19,7 +19,7 @@ A cross-platform client-server To-Do application using **gRPC**.
 ### 🛠 Steps
 
 #### 1. Install vcpkg
-As said in [vcpkg documentation](https://learn.microsoft.com/uk-ua/vcpkg/get_started/get-started-vs?pivots=shell-cmd) you have to first
+As said in [vcpkg documentation](https://learn.microsoft.com/uk-ua/vcpkg/get_started/get-started-vs?pivots=shell-cmd) you have to first navigate to the prefered location and clone the Git repository:
 ```
 git clone https://github.com/microsoft/vcpkg.git
 ```
@@ -28,13 +28,26 @@ After cloning vcpkg, run the following commands to install it:
 cd vcpkg && bootstrap-vcpkg.bat
 ```
 You also need to set up the environment variable `VCPKG_ROOT` to point to the vcpkg directory, and include it to the `PATH` variable.
+
+For wWindows you might use this:
 ```
 set "VCPKG_ROOT=C:\path\to\vcpkg"
 set PATH=%VCPKG_ROOT%;%PATH%
 ```
+For Linux, the alternative would be:
+```
+export VCPKG_ROOT=/path/to/vcpkg
+export PATH=$VCPKG_ROOT:$PATH
+```
 Also, you might need as well to specify the triplet for your platform inside `VCPKG_TARGET_TRIPLET` variable, e.g. `x64-windows`/`x86-windows` for Windows (`x64-linux`/`x86-linux` for Linux). This would be required for future instructions.
+
+Windows:
 ```
 set VCPKG_TARGET_TRIPLET=PLATFORM
+```
+Linux:
+```
+export VCPKG_TARGET_TRIPLET=PLATFORM
 ```
 
 #### 2. Install Ninja
@@ -86,6 +99,7 @@ cd to-doserver
 It is an important step to navigate to this specific directory.
 After that, we have 2 types of scripts inside `scripts` folder, each for different platform.
 For Windows, you would want to run the `.bat` file, while for Linux, you would want to run the `.sh` file.
+
 Running script on Windows:
 ```
 "./scripts/proto-gen.bat"
@@ -144,7 +158,7 @@ gRPC's support for multiple languages, the choice was pretty obvious.
 Due to the previous point, gRPC is a bit tricky to set up, especially on Windows platform. Because of that, it was clear
 that we need a build system that would allow us to easily manage dependencies and build the project on multiple platforms. 
 This would allow us to have a robust application that can be built and run on different operating systems without much hassle.
-This is also why the project uses `vcpkg`` as a dependency manager, as it integrates well with CMake and allows for easy 
+This is also why the project uses `vcpkg` as a dependency manager, as it integrates well with CMake and allows for easy 
 management of libraries.
 
 ### Faced challenges
